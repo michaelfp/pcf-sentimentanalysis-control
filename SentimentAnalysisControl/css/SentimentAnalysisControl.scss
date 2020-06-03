@@ -1,0 +1,118 @@
+.wrapper {
+    margin: 50px auto;
+    text-align: center;
+}
+
+$sentiment-size: 80px;
+$lip-size: 3px;
+
+.sentiment {
+    width: $sentiment-size;
+    height: $sentiment-size;
+    border-radius: 4px;
+    display: inline-block;
+    margin: 0 1em;
+    position: relative;
+
+    &:before {
+        content: '';
+        background: #fff;
+        width: $sentiment-size / 2;
+        height: $sentiment-size / 2;
+        display: block;
+        border-radius: 100%;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        margin-left: -($sentiment-size / 4);
+        margin-top: -($sentiment-size / 4);
+    }
+
+    &:after {
+        display: inline-block;
+        width: $sentiment-size / 5;
+        height: $sentiment-size / 5;
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: 35%;
+        background: transparent;
+    }
+}
+
+.positive-sentiment,
+.negative-sentiment {
+    &:after {
+        margin-left: -($sentiment-size / 10) - $lip-size;
+        border-radius: 100%;
+        border-width: $lip-size;
+        border-style: solid;
+        border-left-color: transparent;
+        border-top-color: transparent;
+        border-right-color: transparent;
+    }
+}
+
+.positive-sentiment {
+    background: #7BC145;
+
+    &:after {
+        border-bottom-color: #7BC145;
+    }
+}
+
+.neutral-sentiment {
+    background: rgb(247, 244, 91);
+
+    &:after {
+        background: rgb(247, 244, 91);
+        height: $lip-size;
+        margin-left: -($sentiment-size / 10);
+        bottom: 38%;
+    }
+}
+
+.negative-sentiment {
+    background: #AC343A;
+
+    &:after {
+        border-bottom-color: transparent;
+        border-top-color: #AC343A;
+        bottom: 15%;
+    }
+}
+
+.positive-sentiment:hover {
+    animation: scaleUp 0.8s infinite;
+}
+
+.negative-sentiment:hover {
+    animation: scaleDown 0.8s infinite;
+}
+
+@keyframes scaleUp {
+    0% {
+        transform: scale(1);
+    }
+
+    80% {
+        transform: scale(1.2);
+    }
+}
+
+@keyframes scaleDown {
+    0% {
+        transform: scale(1);
+    }
+
+    80% {
+        transform: scale(0.8);
+    }
+}
+
+.sentiment-control {
+    text-area {
+        width: 300px;
+        height: 250px;
+    }
+}
