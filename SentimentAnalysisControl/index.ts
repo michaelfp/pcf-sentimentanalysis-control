@@ -1,7 +1,7 @@
 import { IInputs, IOutputs } from "./generated/ManifestTypes";
 import SentimentControl from "./SentimentControl";
 import { CognitiveProvider } from "./Factory/CognitiveFactory";
-import { CognitiveResult } from "./Factory/CognitiveResult";
+import { CognitiveResult, Sentiment } from "./Factory/CognitiveResult";
 require.resolve("./css/SentimentAnalysisControl.scss");
 
 export class SentimentAnalysisControl
@@ -53,6 +53,15 @@ export class SentimentAnalysisControl
       ? context.parameters.apiFindValue.raw
       : "";
 
+    const sentimentValue =
+      context.parameters.SentimentValue.raw !== null
+        ? context.parameters.SentimentValue.raw === Sentiment.Positive
+          ? Sentiment.Positive
+          : context.parameters.SentimentValue.raw === Sentiment.Negative
+          ? Sentiment.Negative
+          : Sentiment.Mixed
+        : Sentiment.Mixed;
+
     this._GetApiKey(
       apiEntityName,
       apiKeyField,
@@ -63,12 +72,17 @@ export class SentimentAnalysisControl
       .then((response) => {
         if (response instanceof Array) {
           this.control = new SentimentControl(
-            CognitiveProvider.Azure,
+            context.parameters.Provider.raw !== null
+              ? context.parameters.Provider.raw === 0
+                ? CognitiveProvider.Watson
+                : CognitiveProvider.Azure
+              : CognitiveProvider.Azure,
             response[0], //url
             response[1], //key
             context.parameters.TextValue.raw
               ? context.parameters.TextValue.raw
-              : ""
+              : "",
+            sentimentValue
           );
 
           this._notifyOutputchanged = notifyOutputChanged;
@@ -170,16 +184,10 @@ export class SentimentAnalysisControl
             result.entities[0].fieldKey
           );
         } else {
-          return new Array(
-            "https://mfpcognitivetext.cognitiveservices.azure.com/",
-            "c6c1421274ae4c68b524624ea7ed3b23"
-          );
+          return undefined;
         }
       } catch (err) {
-        return new Array(
-          "https://mfpcognitivetext.cognitiveservices.azure.com/",
-          "c6c1421274ae4c68b524624ea7ed3b23"
-        );
+        throw err;
       }
     }
 

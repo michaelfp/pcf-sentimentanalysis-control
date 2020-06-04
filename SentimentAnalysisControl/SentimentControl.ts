@@ -23,11 +23,12 @@ export default class SentimentControl {
   private _textValue: string;
   private _container: HTMLDivElement;
   private _textControl: HTMLTextAreaElement;
+  private _sentiment: Sentiment;
   private _cognitiveResultControl: HTMLParagraphElement;
   private _cognitiveResultContainer: HTMLDivElement;
-  private _cognitiveResultNeutral: HTMLDivElement;
-  private _cognitiveResultPositive: HTMLDivElement;
-  private _cognitiveResultNegative: HTMLDivElement;
+  private _cognitiveResultIcon: HTMLDivElement;
+  // private _cognitiveResultPositive: HTMLDivElement;
+  // private _cognitiveResultNegative: HTMLDivElement;
 
   private _cognitiveService: ICognitive;
   private _onChange = new EventDispatcher<SentimentControl, string>();
@@ -45,13 +46,16 @@ export default class SentimentControl {
     provider: CognitiveProvider,
     urlApi: string,
     apiKey: string,
-    textValue: string
+    textValue: string,
+    sentiment: Sentiment
   ) {
+    console.log("Provider " + provider);
     this.ID = this.createUniqueId();
     this._cognitiveService = CognitiveFactory.Create(provider);
     this._onTextChanged = this._onTextChanged.bind(this);
     this._cognitiveService.Initialize(urlApi, apiKey);
     this._textValue = textValue;
+    this._sentiment = sentiment;
   }
 
   /**
@@ -88,24 +92,42 @@ export default class SentimentControl {
       this._cognitiveResultContainer.id = "container_" + this.ID;
       this._cognitiveResultContainer.className = "wrapper";
 
-      this._cognitiveResultNeutral = document.createElement("div");
-      this._cognitiveResultNegative = document.createElement("div");
-      this._cognitiveResultPositive = document.createElement("div");
+      this._cognitiveResultIcon = document.createElement("div");
+      // this._cognitiveResultNegative = document.createElement("div");
+      // this._cognitiveResultPositive = document.createElement("div");
 
-      this._cognitiveResultNeutral.id = "neutral_" + this.ID;
-      this._cognitiveResultNegative.id = "negative_" + this.ID;
-      this._cognitiveResultPositive.id = "positive_" + this.ID;
+      this._cognitiveResultIcon.id = "icon_" + this.ID;
+      // this._cognitiveResultNegative.id = "negative_" + this.ID;
+      // this._cognitiveResultPositive.id = "positive_" + this.ID;
 
-      this._cognitiveResultNeutral.className =
-        "sentiment neutral-sentiment hide";
-      this._cognitiveResultNegative.className =
-        "sentiment negative-sentiment hide";
-      this._cognitiveResultPositive.className =
-        "sentiment positive-sentiment hide";
+      switch (this._sentiment) {
+        case Sentiment.Positive:
+          this._cognitiveResultIcon.className = "sentiment positive-sentiment";
+          break;
+        case Sentiment.Negative:
+          this._cognitiveResultIcon.className = "sentiment negative-sentiment";
+          break;
+        case Sentiment.Neutral:
+          this._cognitiveResultIcon.className = "sentiment neutral-sentiment";
+          break;
+        default:
+          this._cognitiveResultIcon.className = "sentiment hide";
+          break;
+      }
 
-      this._cognitiveResultContainer.appendChild(this._cognitiveResultPositive);
-      this._cognitiveResultContainer.appendChild(this._cognitiveResultNeutral);
-      this._cognitiveResultContainer.appendChild(this._cognitiveResultNegative);
+      if (this._sentiment === Sentiment.Positive)
+        this._cognitiveResultIcon.className =
+          "sentiment neutral-sentiment hide";
+
+      this._cognitiveResultIcon.className = "sentiment neutral-sentiment hide";
+      // this._cognitiveResultNegative.className =
+      //   "sentiment negative-sentiment hide";
+      // this._cognitiveResultPositive.className =
+      //   "sentiment positive-sentiment hide";
+
+      this._cognitiveResultContainer.appendChild(this._cognitiveResultIcon);
+      // this._cognitiveResultContainer.appendChild(this._cognitiveResultNeutral);
+      // this._cognitiveResultContainer.appendChild(this._cognitiveResultNegative);
     }
 
     if (this._container == null) {
@@ -151,6 +173,20 @@ export default class SentimentControl {
       if (result !== undefined) {
         switch (result.OverallSentiment) {
           case Sentiment.Positive:
+            this._cognitiveResultIcon.className =
+              "sentiment positive-sentiment";
+            break;
+          case Sentiment.Negative:
+            this._cognitiveResultIcon.className =
+              "sentiment negative-sentiment";
+            break;
+          case Sentiment.Neutral:
+            this._cognitiveResultIcon.className = "sentiment neutral-sentiment";
+            break;
+          default:
+            this._cognitiveResultIcon.className = "sentiment hide";
+            break;
+          /*case Sentiment.Positive:
             this._cognitiveResultNeutral.className =
               "sentiment neutral-sentiment hide";
             this._cognitiveResultNegative.className =
@@ -181,7 +217,7 @@ export default class SentimentControl {
               "sentiment negative-sentiment hide";
             this._cognitiveResultPositive.className =
               "sentiment positive-sentiment hide";
-            break;
+            break;*/
         }
 
         if (this._cognitiveResultControl !== undefined) {

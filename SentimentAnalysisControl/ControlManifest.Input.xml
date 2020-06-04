@@ -8,15 +8,14 @@
       <type>Multiple</type>
     </type-group>
     <property name="TextValue" display-name-key="TextValue" description-key="Put the value to be analyzed" of-type-group="texts" usage="bound" required="true" />
+    <property name="Provider" display-name-key="TextValue" description-key="Select 0 for Microsoft Cognitive Services and 1 for ibm watson (default:0)" of-type="Whole.None" usage="input" required="true" />
+
     <property name="SentimentValue" display-name-key="SentimentValue" description-key="Put the value to be analyzed" of-type="SingleLine.Text" usage="bound" required="false" />
     <property name="PositiveValue" display-name-key="PositiveValue" description-key="Put the value to be analyzed" of-type="Decimal" usage="bound" required="false" />
     <property name="NeutralValue" display-name-key="NeutralValue" description-key="Put the value to be analyzed" of-type="Decimal" usage="bound" required="false" />
     <property name="NegativeValue" display-name-key="NegativeValue" description-key="Put the value to be analyzed" of-type="Decimal" usage="bound" required="false" />
-
     <property name="apiEntityName" display-name-key="apiEntityName" description-key="Put the value to be analyzed" of-type="SingleLine.Text" usage="input" required="false" />
-
     <property name="apiKeyField" display-name-key="apiKeyField" description-key="Put the value to be analyzed" of-type="SingleLine.Text" usage="input" required="false" />
-
     <property name="apiUrlField" display-name-key="apiUrlField" description-key="Put the value to be analyzed" of-type="SingleLine.Text" usage="input" required="false" />
     <property name="apiFindField" display-name-key="apiFindField" description-key="Put the value to be analyzed" of-type="SingleLine.Text" usage="input" required="false" />
     <property name="apiFindValue" display-name-key="apiFindValue" description-key="Put the value to be analyzed" of-type="SingleLine.Text" usage="input" required="false" />
