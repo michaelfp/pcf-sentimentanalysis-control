@@ -115,19 +115,20 @@ export default class SentimentControl {
           break;
       }
 
-      if (this._sentiment === Sentiment.Positive)
-        this._cognitiveResultIcon.className =
-          "sentiment neutral-sentiment hide";
+      // if (this._sentiment === Sentiment.Positive)
+      //   this._cognitiveResultIcon.className =
+      //     "sentiment neutral-sentiment hide";
 
-      this._cognitiveResultIcon.className = "sentiment neutral-sentiment hide";
+      // this._cognitiveResultIcon.className = "sentiment neutral-sentiment hide";
       // this._cognitiveResultNegative.className =
       //   "sentiment negative-sentiment hide";
       // this._cognitiveResultPositive.className =
       //   "sentiment positive-sentiment hide";
 
-      this._cognitiveResultContainer.appendChild(this._cognitiveResultIcon);
       // this._cognitiveResultContainer.appendChild(this._cognitiveResultNeutral);
       // this._cognitiveResultContainer.appendChild(this._cognitiveResultNegative);
+
+      this._cognitiveResultContainer.appendChild(this._cognitiveResultIcon);
     }
 
     if (this._container == null) {
@@ -136,6 +137,7 @@ export default class SentimentControl {
       this._container.className = this._classControl;
       this._container.appendChild(this._textControl);
       this._container.appendChild(this._cognitiveResultContainer);
+
       // this._container.appendChild(this._cognitiveResultControl);
     }
 

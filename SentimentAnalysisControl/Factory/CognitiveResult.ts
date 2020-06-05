@@ -1,14 +1,31 @@
+/**
+ * Sentiments
+ */
 export const enum Sentiment {
   Positive = "Positive",
   Neutral = "Neutral",
   Negative = "Negative",
   Mixed = "Mixed",
 }
-
+/**
+ * Result of Cognitive Validation
+ */
 export class CognitiveResult {
+  /**
+   * Result of Analyze
+   */
   private _OverallSentiment: Sentiment;
+  /**
+   * Value of Positive
+   */
   private _Positive: number;
+  /**
+   * Value of Neutral
+   */
   private _Neutral: number;
+  /**
+   * Value of Negative
+   */
   private _Negative: number;
 
   constructor(

@@ -46,8 +46,8 @@ export class SentimentAnalysisControl
     let apiKeyField = context.parameters.apiKeyField.raw
       ? context.parameters.apiKeyField.raw
       : "";
-    let apiFindField = context.parameters.apiFindValue.raw
-      ? context.parameters.apiFindValue.raw
+    let apiFindField = context.parameters.apiFindField.raw
+      ? context.parameters.apiFindField.raw
       : "";
     let apiFindValue = context.parameters.apiFindValue.raw
       ? context.parameters.apiFindValue.raw
@@ -73,7 +73,7 @@ export class SentimentAnalysisControl
         if (response instanceof Array) {
           this.control = new SentimentControl(
             context.parameters.Provider.raw !== null
-              ? context.parameters.Provider.raw === 0
+              ? context.parameters.Provider.raw === 1
                 ? CognitiveProvider.Watson
                 : CognitiveProvider.Azure
               : CognitiveProvider.Azure,
@@ -97,6 +97,7 @@ export class SentimentAnalysisControl
         }
       })
       .catch((err) => {
+        console.log("Error Sentiment Control:", err);
         throw new Error(err);
       });
   }
@@ -163,6 +164,14 @@ export class SentimentAnalysisControl
     // Add code to cleanup control if necessary
   }
 
+  /**
+   * Get the Url and Key from Dynamics/Power Apps Entity
+   * @param entityName Entity to find
+   * @param fieldKey field that have the key
+   * @param fieldUrl field that have the url
+   * @param findField field to find
+   * @param findValue value to find
+   */
   private async _GetApiKey(
     entityName: string,
     fieldKey: string,
@@ -171,7 +180,7 @@ export class SentimentAnalysisControl
     findValue: string
   ): Promise<any> {
     if (this._context !== undefined) {
-      let query = `$select=${fieldKey},${fieldUrl}&filter=${findField} eq ${findValue}`;
+      let query = `?$select=${fieldKey},${fieldUrl}&$filter=${findField} eq '${findValue}'`;
       try {
         var result = await this._context.webAPI.retrieveMultipleRecords(
           entityName,
@@ -180,8 +189,8 @@ export class SentimentAnalysisControl
 
         if (result.entities.length > 0) {
           return new Array(
-            result.entities[0].fieldUrl,
-            result.entities[0].fieldKey
+            result.entities[0][fieldUrl],
+            result.entities[0][fieldKey]
           );
         } else {
           return undefined;

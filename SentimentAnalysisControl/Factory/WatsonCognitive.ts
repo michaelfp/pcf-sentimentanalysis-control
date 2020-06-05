@@ -19,7 +19,7 @@ export class WatsonCognitive implements ICognitive {
     this._tonaAnalyzer = new ToneAnalyzerV3({
       version: "2017-09-21",
       authenticator: new BearerTokenAuthenticator({
-        bearerToken: apiKey /*apiKey*/,
+        bearerToken: apiKey /*bearertoken - watson recommend to get the token from server*/,
       }),
       url: urlApi /*urlApi*/,
     });

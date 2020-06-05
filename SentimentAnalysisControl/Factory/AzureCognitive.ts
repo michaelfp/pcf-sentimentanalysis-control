@@ -19,6 +19,7 @@ export class AzureCognitive implements ICognitive {
     );
   }
   async AnalyzeText(document: string): Promise<CognitiveResult> {
+    //Because Microsoft separate each setence to validate, i made avarage calculation to get the more precision on the result
     var documents = this.Sanitize(document);
     const results = await this.client.analyzeSentiment(documents);
 

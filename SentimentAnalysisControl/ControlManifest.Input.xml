@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <manifest>
-  <control namespace="Michael" constructor="SentimentAnalysisControl" version="0.0.2" display-name-key="SentimentAnalysisControl_Display_Key" description-key="SentimentAnalysisControl_Desc_Key" control-type="standard">
+  <control namespace="Michael" constructor="SentimentAnalysisControl" version="0.0.5" display-name-key="SentimentAnalysisControl_Display_Key" description-key="SentimentAnalysisControl_Desc_Key" control-type="standard">
     <!-- property node identifies a specific, configurable piece of data that the control expects from CDS -->
     <type-group name="texts">
       <type>SingleLine.Text</type>
@@ -8,7 +8,7 @@
       <type>Multiple</type>
     </type-group>
     <property name="TextValue" display-name-key="TextValue" description-key="Put the value to be analyzed" of-type-group="texts" usage="bound" required="true" />
-    <property name="Provider" display-name-key="TextValue" description-key="Select 0 for Microsoft Cognitive Services and 1 for ibm watson (default:0)" of-type="Whole.None" usage="input" required="true" />
+    <property name="Provider" display-name-key="Provider" description-key="Select 0 for Microsoft Cognitive Services and 1 for ibm watson (default:0)" of-type="Whole.None" usage="input" required="true" />
 
     <property name="SentimentValue" display-name-key="SentimentValue" description-key="Put the value to be analyzed" of-type="SingleLine.Text" usage="bound" required="false" />
     <property name="PositiveValue" display-name-key="PositiveValue" description-key="Put the value to be analyzed" of-type="Decimal" usage="bound" required="false" />
