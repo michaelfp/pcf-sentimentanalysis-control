@@ -2,7 +2,7 @@
 
 Componente de Power Apps para executar análise de sentimentos utilizandos Microsoft Cognitive Services ou IBM Watson. Muito prático em utilizar no caso de análisar os tweets do seu cliente, verificando como ele se sente.
 
-![Sentiment Control](https://blog.michaelfp.com.br/wp-content/uploads/2020/06/Video_2020-06-02_235034.gif)
+:::image type="content" source="pcf_control_sentiment.gif" alt-text="Sentiment Control":::
 
 O componente contém alguns parametro para serem configurados antes de utilizar:
 
