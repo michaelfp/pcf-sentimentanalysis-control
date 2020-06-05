@@ -6,8 +6,7 @@ Componente de Power Apps para executar análise de sentimentos utilizandos Micro
 
 O componente contém alguns parametro para serem configurados antes de utilizar:
 
-> [!IMPORTANT]
-> É necessário ter uma conta do Microsoft Azure Cognitive Service ou IBM watson para utilizar.
+> [!IMPORTANT] > **É necessário ter uma conta do Microsoft Azure Cognitive Service ou IBM watson para utilizar.**
 
 | Property           | Description                                                                | Type   |
 | ------------------ | -------------------------------------------------------------------------- | ------ |

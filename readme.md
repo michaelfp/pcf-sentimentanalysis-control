@@ -9,8 +9,7 @@ A Power Apps component to execute a sentiment analysis using Microsoft Cognitive
 
 The component has some properties that needs to be configured first.
 
-> [!IMPORTANT]
-> You must have a account in Microsoft Cognitive Services or IBM Watson.
+> [!IMPORTANT] > **You must have a account in Microsoft Cognitive Services or IBM Watson.**
 
 | Property           | Description                                             | Type   |
 | ------------------ | ------------------------------------------------------- | ------ |
